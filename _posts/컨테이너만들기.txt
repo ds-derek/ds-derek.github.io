@@ -1,0 +1,58 @@
+도커 설치하기
+curl -s https://get.docker.com/ | sudo sh
+리눅스 종류에 따라 자동으로 알맞는 명령어로 도커데몬을 설치하게 된다.
+맥 windows는
+도커 for mac, 도커 for windows
+
+리눅스 컨테이너 : 가상머신위에서 도는 프로세스
+윈도우 컨테이너 : 윈도우 위에서 도는 프로세스
+
+도커는 리눅스만 지원하기 때문에 macOs와 windows에 설치되어 있는 도커는 실제로 가상머신에 설치 됩니다.
+MacOs 는 xhyve windows 는 Hyper-V 가상화 기술을 사용한다.
+
+docker version
+clinet : 클라이언트
+server : 호스트 (서버 데몬)
+
+docker run ubuntu:16.04
+docker run --rm -it ubuntu:16.04 /bin/sh
+-it : 터미널로 입력을 하겠다.
+--rm : 프로세스를 종료하자 마자 컨테이너 제거
+-d : background
+-p : port
+-e : 환경변수 <key=value>
+
+사용자는 이미지 내부 개발환경을 신경 쓸 필요가 없다.
+다운로드 받지 않고 프로그램을 실행해서 바로 사용
+
+docker run --name=redis -d -p 1234:6789 redis
+docker run --rm -it mikesplain/telnet docker.for.mac.localhost 1234 
+
+docker exec -it mysql mysql
+
+docker ps 
+docker ps -a : 종료된 프로세스도 함께 출력
+
+docker logs <containerID>
+-f : 새로 생성되는 로그를 실시간으로 확인할 수 있다.
+
+docker pull 
+
+rmi : 이미지 삭제
+
+네트워크 만들기
+network create 
+도커 컨테이너끼리 통신을 할 수 있는 가상 네트워크를 만든다.
+
+docker-compose 
+<docker-compose.yml> 
+-f : 파일 지정
+
+docker-compose up
+docker-compose down
+volumns : 
+    - ./mysql:/var/mysql 
+
+저장이 필요한 데이터는 호스트와 연결해서 유실을 막을 수 있다.
+
+

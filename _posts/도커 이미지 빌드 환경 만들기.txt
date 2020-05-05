@@ -1,0 +1,9 @@
+CI / CD
+    소스 수정 -> git pull -> image build -> 배포
+    1.소스 저장소에 최신 소스 저장
+    2.전체 소스 다운로드
+    3.테스트
+    4.docker image 생성
+    5.docker image 저장
+    6.애플리케이션 업데이트
+    
