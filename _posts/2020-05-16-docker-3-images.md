@@ -6,6 +6,7 @@ categories:
     - Docker
 permalink: docker-exec.html
 createat: 2020-05-17
+thumbnail: /assets/images/thumbnails/docker-logo-1200x628.png
 ---
 
 ### Docker Image

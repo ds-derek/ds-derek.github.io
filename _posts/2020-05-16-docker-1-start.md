@@ -6,6 +6,7 @@ categories:
     - Docker
 permalink: docker-start.html
 createat: 2020-05-16
+thumbnail: /assets/images/thumbnails/docker-logo-1200x628.png
 ---
 
 # 내 PC에 도커를 설치해 보자

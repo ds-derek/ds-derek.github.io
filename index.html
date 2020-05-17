@@ -5,10 +5,10 @@ layout: default
     <div class="hero-body">
         <div class="container is-fluid">
             <h1 class="title">
-                Blog
+                Hi, there.
             </h1>
             <h2 class="subtitle">
-                Keep It Simple, Stupid.
+                For Easy And Fun Development.
             </h2>
         </div>
     </div>
@@ -40,8 +40,8 @@ layout: default
         <br>
         {% endfor %}
         <nav class="pagination is-centered">
-            <a {% if paginator.previous_page %}href="..{{  paginator.previous_page_path }}"{% endif %} class="pagination-previous {% if paginator.previous_page %}{% else %} is-disabled {% endif %}">Önceki Yazılar</a>
-            <a {% if paginator.next_page %}href="..{{  paginator.next_page_path }}"{% endif %} class="pagination-next {% if paginator.next_page %}{% else %} is-disabled {% endif %}">Sonraki Yazılar</a>
+            <a {% if paginator.previous_page %}href="..{{  paginator.previous_page_path }}"{% endif %} class="pagination-previous {% if paginator.previous_page %}{% else %} is-disabled {% endif %}">prev</a>
+            <a {% if paginator.next_page %}href="..{{  paginator.next_page_path }}"{% endif %} class="pagination-next {% if paginator.next_page %}{% else %} is-disabled {% endif %}">next</a>
             <ul class="pagination-list">
                 {% for page in (1..paginator.total_pages) %}
                 <li>
