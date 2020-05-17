@@ -9,6 +9,7 @@
 컨테이너를 이미지로 만들기
 Read Only & Writable layer
 대부분 읽기만 가능
+컨테이너를 실행했을 때는 쓸 수 있는 레이어가 생긴다.
 
 Base Image 
     rootfs
