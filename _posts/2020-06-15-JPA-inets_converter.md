@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JPA Converter for mysql inet_aton
-tags: [Docker, Dev, Linux]
+tags: [JAVA, Spring, JPA]
 categories:
     - Java
     - Spring
