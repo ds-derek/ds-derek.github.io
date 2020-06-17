@@ -127,7 +127,7 @@ $ docker run -d --name=runningproejct --restart=always myproject:latest
 여기 까지 작업이 완료되었다면 docker hub 혹은 docker registry 을 이용해서 이미지를 배포할 수 있을 것입니다.  
 하지만 깃랩을 이용하면 이 부분도 자동화 할 수 있습니다. 
 
-### 4. Gitlab 프로젝트를 만들고 위 (1.-3.) 과정을 gitlab-ci.yml에 정의해서 자동화하기
+### 4. Gitlab 프로젝트를 만들고 위 (1.-3.) gitlab-runner 등록 (register) 하기
 깃랩에 특정 브런치에 push 혹은 merge 될 때마다 도커 빌드와 배포를 하기 위해서는 gitlab runner 와 gitlab-ci.yml파일이 필요합니다.  
 gitlab runner 의 경우 배포할 서버에 설치해야 하는데 만약 서버가 개발서버, 운영서버 2대 있다면 2대 모두 설치해 주어야 합니다.  
 gitlab-ci.yml 은 프로젝트 루트경로에 Dockerfile과 함께 생성합니다.  
@@ -148,6 +148,7 @@ docker를 이용해 docker in docker 로 서비스 하는 예제 포스팅도 �
 저의 경우는 여러 까다로운 설정(접근 권한 등..)들 때문에 Shell 을 이용했습니다.    
 
 1. 리눅스 권한에 따라 설치 파일을 다운로드
+
 ```bash
 # Linux x86-64
 $ sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
@@ -225,5 +226,52 @@ gitlab 프로젝트의 runners 토큰 부분을 확인하면 태그별로 리스
 $ sudo gitlab-runner status // 상태확인 
 $ sudo gitlab-runner restart // 재시작
 $ sudo gitlab-runner verify // 등록된 러너 확인
+```
+ 
+ 이제 연동된 gitlab-runner 를 gitlab-ci.yml 파일로 동작하도록 해주면 자동배포 구축이 완료됩니다.  
+ 
+ ### 5.gitlab-ci.yml 작성
+ 
+```yaml
+stages:
+    - test
+    - dockernize
+    - deploy
+variables:
+    IMAGE_NAME: @이미지명:태그
+
+test:
+    stage: test
+    script:
+        - echo "skip test."
+        - docker ps -a
+    tags :
+        - release
+
+dockernize:
+    only:
+        - develop
+    stage: dockernize
+
+    script:
+        - docker container ls -a
+        - docker build -f Dockerfile.dev -t $IMAGE_NAME .
+        - docker image prune -f
+    tags:
+        - develop
+
+deploy:
+    only:
+        - master
+    stage: deploy
+
+    script:
+        - docker container ls -a
+        - docker container rm -f gio-client
+        - docker run -d -p 80:80 --name=gio-client --restart always $IMAGE_NAME
+        - docker container ls -a
+
+    tags:
+        - release
 ```
  
